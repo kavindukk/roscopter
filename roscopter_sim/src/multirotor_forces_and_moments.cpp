@@ -43,6 +43,8 @@ void MultiRotorForcesAndMoments::SendForces()
   // Gazebo is in NWU, while we calculate forces in NED, hence the negatives
   link_->AddRelativeForce(GazeboVector(actual_forces_.Fx, -actual_forces_.Fy, -actual_forces_.Fz));
   link_->AddRelativeTorque(GazeboVector(actual_forces_.l, -actual_forces_.m, -actual_forces_.n));
+
+  std::cout<<actual_forces_.l<<" "<<actual_forces_.m<<" "<<actual_forces_.n<<std::endl;
 }
 
 
@@ -292,6 +294,35 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
 
   // Apply other forces (wind) <- follows "Quadrotors and Accelerometers - State Estimation With an Improved Dynamic Model"
   // By Rob Leishman et al. (Remember NED)
+
+// MY CODE GOES HERE
+
+    double omega = 250;
+
+    Eigen::Matrix<double, 3,3> coeff;
+    double Ct, dCt, Cq = 9.0e-5, 1.2e-5, 1.2e-5;
+    coeff<<Ct,Ct, Ct, Ct,
+    0, dCt, 0, -dCt,
+    -dCt, 0, dCt, 0,
+    -Cq, Cq, -Cq, Cq;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   actual_forces_.Fx = -1.0*linear_mu_*ur;
   actual_forces_.Fy = -1.0*linear_mu_*vr;
   actual_forces_.Fz = -1.0*linear_mu_*wr - applied_forces_.Fz - ground_effect;
