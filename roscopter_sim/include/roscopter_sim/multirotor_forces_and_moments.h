@@ -19,6 +19,7 @@
 #define ROSCOPTER_SIM_MULTIROTOR_FORCES_AND_MOMENTS_H
 
 #include <stdio.h>
+#include<math.h>
 
 #include <vector>
 #include <boost/bind.hpp>
@@ -39,6 +40,11 @@
 
 #include "roscopter_sim/common.h"
 #include "roscopter_sim/gz_compat.h"
+
+#define pi 3.1415926535
+#define s(theta) sin(theta)
+#define c(theta) cos(theta)
+#define t(theta) tan(theta)
 
 namespace gazebo {
 

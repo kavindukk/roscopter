@@ -41,10 +41,10 @@ void MultiRotorForcesAndMoments::SendForces()
 {
   // apply the forces and torques to the joint
   // Gazebo is in NWU, while we calculate forces in NED, hence the negatives
-  link_->AddRelativeForce(GazeboVector(actual_forces_.Fx, -actual_forces_.Fy, -actual_forces_.Fz));
-  link_->AddRelativeTorque(GazeboVector(actual_forces_.l, -actual_forces_.m, -actual_forces_.n));
+  link_->AddRelativeForce(GazeboVector(actual_forces_.Fx, actual_forces_.Fy, actual_forces_.Fz));
+  link_->AddRelativeTorque(GazeboVector(actual_forces_.l, actual_forces_.m, actual_forces_.n));
 
-  std::cout<<actual_forces_.l<<" "<<actual_forces_.m<<" "<<actual_forces_.n<<std::endl;
+  // std::cout<<actual_forces_.l<<" "<<actual_forces_.m<<" "<<actual_forces_.n<<std::endl;
 }
 
 
@@ -297,38 +297,67 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
 
 // MY CODE GOES HERE
 
-    double omega = 250;
+    double omega_1 = 250.0;
+    double omega_2 = 200.0;
+    double omega_3 = 250.0;
+    double omega_4 = 200.0;
 
-    Eigen::Matrix<double, 3,3> coeff;
-    double Ct, dCt, Cq = 9.0e-5, 1.2e-5, 1.2e-5;
-    coeff<<Ct,Ct, Ct, Ct,
-    0, dCt, 0, -dCt,
-    -dCt, 0, dCt, 0,
-    -Cq, Cq, -Cq, Cq;
+    Eigen::Matrix<double, 4,1> angles;
+    angles << omega_1*omega_1, omega_2*omega_2, omega_3*omega_3, omega_4*omega_4;
+
+    // double phi = pi/20;
+    // double theta = pi/20;
+    // double psi = pi/20;
+
+    Eigen::Matrix<double, 4,4> coeff;
+    double Ct = 0.00028;
+    double dCt = 0.000012;
+    double Cq = 0.000012;
+    coeff << Ct,Ct, Ct, Ct,
+            0, dCt, 0, -dCt,
+            -dCt, 0, dCt, 0,
+            -Cq, Cq, -Cq, Cq;
+
+    Eigen::Matrix<double, 3,3> R;
+    R<< (c(psi)*c(theta)-s(phi)*s(psi)*s(theta)), -c(psi)*c(theta), (c(psi)*s(theta)+c(theta)*s(phi)*s(psi)),
+            (c(theta)*s(psi)+c(psi)*s(phi)*s(theta)), c(phi)*c(psi), (s(psi)*s(theta) - c(psi)*c(theta)*s(psi)),
+            (-c(phi)*s(theta)), s(phi), c(phi)*c(theta);
+
+    Eigen::MatrixXd FT_b = coeff * angles;
+
+//    std::cout << FT_b(2,0) <<std::endl;
+    Eigen:: Matrix<double, 3,1> F;
+    F << 0, 0, FT_b(0,0);
+
+    Eigen:: Matrix<double, 3,1> M;
+    M << FT_b(1,0), FT_b(2,0), FT_b(3,0);
+
+    Eigen::MatrixXd F_i;
+    F_i = R * F;
+
+    Eigen::MatrixXd M_i;
+    M_i = R * M;
+
+    std::cout<< F_i(2,0) <<std::endl;
+    // std::cout<< M_i <<std::endl;
+
+    actual_forces_.Fx = F_i(0,0);
+    actual_forces_.Fy = F_i(1,0);
+    actual_forces_.Fz = F_i(2,0);
+    actual_forces_.l = M_i(0,0);
+    actual_forces_.m = M_i(1,0);
+    actual_forces_.n = M_i(2,0);
+
+    
+  //  MY CODE GOES HERE
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  actual_forces_.Fx = -1.0*linear_mu_*ur;
-  actual_forces_.Fy = -1.0*linear_mu_*vr;
-  actual_forces_.Fz = -1.0*linear_mu_*wr - applied_forces_.Fz - ground_effect;
-  actual_forces_.l = -1.0*angular_mu_*p + applied_forces_.l;
-  actual_forces_.m = -1.0*angular_mu_*q + applied_forces_.m;
-  actual_forces_.n = -1.0*angular_mu_*r + applied_forces_.n;
+  // actual_forces_.Fx = -1.0*linear_mu_*ur;
+  // actual_forces_.Fy = -1.0*linear_mu_*vr;
+  // actual_forces_.Fz = -1.0*linear_mu_*wr - applied_forces_.Fz - ground_effect;
+  // actual_forces_.l = -1.0*angular_mu_*p + applied_forces_.l;
+  // actual_forces_.m = -1.0*angular_mu_*q + applied_forces_.m;
+  // actual_forces_.n = -1.0*angular_mu_*r + applied_forces_.n;
 
   // publish attitude like ROSflight
   rosflight_msgs::Attitude attitude_msg;
