@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3c599631-756f-45a9-abf9-c97809e22a15" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/roscopter_sim.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multirotor_forces_and_moments.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/multirotor_forces_and_moments.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Xd9qYtNperzbzJawkXQBXbUyfE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="ObjectiveC" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+  </component>
+  <component name="RunManager">
+    <configuration name="GCC" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$/.." PASS_PARENT_ENVS_2="true" RUN_PATH="/usr/bin/g++" EXPLICIT_BUILD_TARGET_NAME="all">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" RUN_PATH="/usr/bin/gcc" EXPLICIT_BUILD_TARGET_NAME="all">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c599631-756f-45a9-abf9-c97809e22a15" name="Default Changelist" comment="" />
+      <created>1581365295768</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581365295768</updated>
+      <workItem from="1581365297032" duration="1969000" />
+      <workItem from="1581369389441" duration="771000" />
+      <workItem from="1581534833418" duration="945000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="327" y="182" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581535213756">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="327" y="182" key="#com.intellij.execution.impl.EditConfigurationsDialog/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581535213756" />
+    <state x="640" y="331" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581369608665">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="640" y="331" key="#com.intellij.fileTypes.FileTypeChooser/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581369608665" />
+    <state x="605" y="288" key="EnvironmentVariablesDialog" timestamp="1581370149170">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="605" y="288" key="EnvironmentVariablesDialog/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581370149170" />
+    <state x="650" y="282" key="FileChooserDialogImpl" timestamp="1581369849525">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="650" y="282" key="FileChooserDialogImpl/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581369849525" />
+    <state x="386" y="159" key="SettingsEditor" timestamp="1581369800768">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="386" y="159" key="SettingsEditor/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581369800768" />
+    <state x="576" y="352" key="com.intellij.ide.util.TipDialog" timestamp="1581534833877">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="576" y="352" key="com.intellij.ide.util.TipDialog/47.24.1633.1026/1680.0.1680.1050@47.24.1633.1026" timestamp="1581534833877" />
+    <state x="85" y="24" width="1397" height="723" key="dock-window-1" timestamp="1581535496153">
+      <screen x="47" y="24" width="1633" height="1026" />
+    </state>
+    <state x="85" y="24" width="1397" height="723" key="dock-window-1/47.24.1633.1026/1680.0.1680.1050@1680.0.1680.1050" timestamp="1581535496153" />
+  </component>
+</project>
