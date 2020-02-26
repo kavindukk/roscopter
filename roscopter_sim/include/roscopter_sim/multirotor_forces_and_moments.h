@@ -134,9 +134,11 @@ private:
 
   ros::NodeHandle* nh_;
   ros::NodeHandle nh_private_;
+  ros::NodeHandle nh_motor_; // node handle for motor controller
   ros::Subscriber command_sub_;
   ros::Subscriber wind_sub_;
   ros::Publisher attitude_pub_;
+  // ros::Publisher motor_speed_;
 
   boost::thread callback_queue_thread_;
   void QueueThread();

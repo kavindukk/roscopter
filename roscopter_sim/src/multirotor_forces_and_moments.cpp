@@ -64,6 +64,7 @@ void MultiRotorForcesAndMoments::Load(physics::ModelPtr _model, sdf::ElementPtr 
     gzerr << "[multirotor_forces_and_moments] Please specify a namespace.\n";
   nh_ = new ros::NodeHandle(namespace_);
   nh_private_ = ros::NodeHandle(namespace_ + "/dynamics");
+  nh_motor_ = ros::NodeHandle(namespace_+ "/motor_controller"); // Node Handle for motor contrller
 
   if (_sdf->HasElement("linkName"))
     link_name_ = _sdf->GetElement("linkName")->Get<std::string>();
@@ -127,6 +128,12 @@ void MultiRotorForcesAndMoments::Load(physics::ModelPtr _model, sdf::ElementPtr 
   altP = nh_private_.param<double>("alt_P", 0.1);
   altI = nh_private_.param<double>("alt_I", 0.0);
   altD = nh_private_.param<double>("alt_D", 0.0);
+
+  // Get Propeller Coefficients
+  // double Ct, dCt, Cq;
+  // Ct = nh_private2_.param<double>("c_thrust", 0.00028);
+  // dCt = nh_private2_.param<double>("dc_thrust", 0.000012);
+  // Cq = nh_private2_.param<double>("c_reaction", 0.000012);
 
   roll_controller_.setGains(rollP, rollI, rollD);
   pitch_controller_.setGains(pitchP, pitchI, pitchD);
@@ -297,9 +304,13 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
 
   //MY CODE GOES HERE    
   Eigen::Matrix<double, 4,4> coeff;
-  double Ct = 0.00028;
-  double dCt = 0.000012;
-  double Cq = 0.000012;
+  // double Ct = 0.00028;
+  // double dCt = 0.000012;
+  // double Cq = 0.000012;
+  double Ct, dCt, Cq;
+  Ct = nh_motor_.param<double>("c_thrust", 0.00028);
+  dCt = nh_motor_.param<double>("dc_thrust", 0.000012);
+  Cq = nh_motor_.param<double>("c_reaction", 0.000012);
   coeff << Ct,Ct, Ct, Ct,
           0, dCt, 0, -dCt,
           -dCt, 0, dCt, 0,
@@ -310,6 +321,8 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
   FT_b << applied_forces_.Fz, applied_forces_.l, applied_forces_.m, applied_forces_.n;
   angular_speeds = coeff.inverse()*FT_b;
   // std::cout<<"Om_1: "<<angular_speeds(0,0)<<" Om_2: "<<angular_speeds(1,0)<<" Om_3: "<<angular_speeds(2,0)<<" Om_4: "<<angular_speeds(3,0)<<std::endl;
+  // motor_speeds = nh_motor_.advertise<geometry_msgs::Quaternion>("motor_speeds", 10);
+
   std::cout<<"Om_1: "<<sqrt(angular_speeds(0,0))<<" Om_2: "<<sqrt(angular_speeds(1,0))<<" Om_3: "<<sqrt(angular_speeds(2,0))<<" Om_4: "<<sqrt(angular_speeds(3,0))<<std::endl;
 
   Eigen::Matrix<double, 3,3> R;

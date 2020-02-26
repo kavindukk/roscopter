@@ -166,3 +166,14 @@ initial_altitude: 1387.0,
 num_sats: 7
 
 }
+
+
+# MOTOR_CONTROLLER
+motor_controller: {
+
+c_thrust: 0.00028, #C_T
+c_reaction: 0.000012, #C_Q
+dc_thrust: 0.000012 #dC_T
+
+}
+
