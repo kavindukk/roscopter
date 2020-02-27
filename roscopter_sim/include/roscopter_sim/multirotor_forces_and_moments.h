@@ -138,7 +138,7 @@ private:
   ros::Subscriber command_sub_;
   ros::Subscriber wind_sub_;
   ros::Publisher attitude_pub_;
-  // ros::Publisher motor_speed_;
+  ros::Publisher motor_speed_;
 
   boost::thread callback_queue_thread_;
   void QueueThread();

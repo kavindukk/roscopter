@@ -149,6 +149,7 @@ void MultiRotorForcesAndMoments::Load(physics::ModelPtr _model, sdf::ElementPtr 
 
   // Connect Publishers
   attitude_pub_ = nh_->advertise<rosflight_msgs::Attitude>(attitude_topic_, 1);
+  // motor_speed_ = nh_motor_.advertise<geometry_msgs::Quaternion>(motor_speeds, 10);
 
   // Initialize State
   this->Reset();
@@ -323,7 +324,16 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
   // std::cout<<"Om_1: "<<angular_speeds(0,0)<<" Om_2: "<<angular_speeds(1,0)<<" Om_3: "<<angular_speeds(2,0)<<" Om_4: "<<angular_speeds(3,0)<<std::endl;
   // motor_speeds = nh_motor_.advertise<geometry_msgs::Quaternion>("motor_speeds", 10);
 
-  std::cout<<"Om_1: "<<sqrt(angular_speeds(0,0))<<" Om_2: "<<sqrt(angular_speeds(1,0))<<" Om_3: "<<sqrt(angular_speeds(2,0))<<" Om_4: "<<sqrt(angular_speeds(3,0))<<std::endl;
+  geometry_msgs::Quaternion motor_rate;
+  motor_rate.x =  sqrt(angular_speeds(0,0));
+  motor_rate.y = sqrt(angular_speeds(1,0));
+  motor_rate.z = sqrt(angular_speeds(2,0));
+  motor_rate.w = sqrt(angular_speeds(3,0));
+
+  // Publishes motor speeds to to ROS Topic motor_speed
+  motor_speed_ = nh_->advertise<geometry_msgs::Quaternion>("motor_speeds", 10); //Rotor speeds can be checked from motor_speeds topic
+  motor_speed_.publish(motor_rate);
+  // std::cout<<"Om_1: "<<sqrt(angular_speeds(0,0))<<" Om_2: "<<sqrt(angular_speeds(1,0))<<" Om_3: "<<sqrt(angular_speeds(2,0))<<" Om_4: "<<sqrt(angular_speeds(3,0))<<std::endl;
 
   Eigen::Matrix<double, 3,3> R;
   R<< (c(-psi)*c(-theta)-s(phi)*s(-psi)*s(-theta)), -c(phi)*s(phi), (c(-psi)*s(-theta)+c(-theta)*s(phi)*s(-psi)),
