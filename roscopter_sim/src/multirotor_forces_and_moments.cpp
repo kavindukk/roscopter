@@ -308,7 +308,7 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
   // double Ct = 0.00028;
   // double dCt = 0.000012;
   // double Cq = 0.000012;
-  double Ct, dCt, Cq;
+  double Ct, dCt, Cq;  // pulling parameters from parametes/multirotor.yaml file 
   Ct = nh_motor_.param<double>("c_thrust", 0.00028);
   dCt = nh_motor_.param<double>("dc_thrust", 0.000012);
   Cq = nh_motor_.param<double>("c_reaction", 0.000012);
@@ -330,9 +330,26 @@ void MultiRotorForcesAndMoments::UpdateForcesAndMoments()
   motor_rate.z = sqrt(angular_speeds(2,0));
   motor_rate.w = sqrt(angular_speeds(3,0));
 
-  // Publishes motor speeds to to ROS Topic motor_speed
+  double OM1 = sqrt(angular_speeds(0,0));
+  double OM2 = sqrt(angular_speeds(1,0));
+  double OM3 = sqrt(angular_speeds(2,0));
+  double OM4 = sqrt(angular_speeds(3,0));
+
+  //motor speed to ESC signal realtion is 0.00266634214357*OM**2 + 0.10730542398144*OM + 1003.16054308044
+  geometry_msgs::Quaternion ESC_signal;
+  ESC_signal.x = std::ceil(0.00266634214357*pow(OM1,2) + 0.10730542398144*OM1 + 1003.16054308044);
+  ESC_signal.y = std::ceil(0.00266634214357*pow(OM2,2) + 0.10730542398144*OM2 + 1003.16054308044);
+  ESC_signal.z = std::ceil(0.00266634214357*pow(OM3,2) + 0.10730542398144*OM3 + 1003.16054308044);
+  ESC_signal.w = std::ceil(0.00266634214357*pow(OM4,2) + 0.10730542398144*OM4 + 1003.16054308044);
+
+  // Publishes motor speeds to ROS Topic motor_speed
   motor_speed_ = nh_->advertise<geometry_msgs::Quaternion>("motor_speeds", 10); //Rotor speeds can be checked from motor_speeds topic
   motor_speed_.publish(motor_rate);
+
+  // Publishes ESC signal to ROStopic ESC_signal
+  ESC_signal_ = nh_->advertise<geometry_msgs::Quaternion>("ESC_signal", 10); //ESC signal can be checked from ESC_signal topic
+  ESC_signal_.publish(ESC_signal);
+
   // std::cout<<"Om_1: "<<sqrt(angular_speeds(0,0))<<" Om_2: "<<sqrt(angular_speeds(1,0))<<" Om_3: "<<sqrt(angular_speeds(2,0))<<" Om_4: "<<sqrt(angular_speeds(3,0))<<std::endl;
 
   Eigen::Matrix<double, 3,3> R;
